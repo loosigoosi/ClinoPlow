@@ -86,6 +86,9 @@ import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_UNIT_OF_
 
 public class ClinometerActivity extends AppCompatActivity implements SensorEventListener {
 
+    //private WIT witMotionSensor =new WIT();
+
+
     // Singleton instance
     private static ClinometerActivity singleton;
 
@@ -290,6 +293,8 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
+        //witMotionSensor = WIT.getInstance();
 
         singleton = this;
 
