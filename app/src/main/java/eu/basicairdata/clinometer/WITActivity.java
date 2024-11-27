@@ -40,7 +40,7 @@ import java.util.Objects;
  * @author huangyajun
  * @date 2022/6/29 11:35
  */
-public class WIT extends AppCompatActivity implements IBluetoothFoundObserver, IBwt901clRecordObserver {
+public class WITActivity extends AppCompatActivity implements IBluetoothFoundObserver, IBwt901clRecordObserver {
 
     /**
      * 日志标签
@@ -67,9 +67,9 @@ public class WIT extends AppCompatActivity implements IBluetoothFoundObserver, I
      * @author huangyajun
      * @date 2022/6/29 8:43
      */
-    private static WIT singleton;
+    private static WITActivity singleton;
 
-    public static WIT getInstance(){
+    public static  WITActivity getInstance(){
         return singleton;
     }
 
@@ -147,7 +147,7 @@ public class WIT extends AppCompatActivity implements IBluetoothFoundObserver, I
      * @date 2022/6/29 13:59
      */
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
     }
@@ -178,6 +178,10 @@ public class WIT extends AppCompatActivity implements IBluetoothFoundObserver, I
         try {
             // 获得蓝牙管理器
             // get bluetooth manager
+
+            /// aggiunto richiesta permessi altrimenti non istanziava alcunché
+            WitBluetoothManager.requestPermissions(this);
+            ///
             WitBluetoothManager bluetoothManager = WitBluetoothManager.getInstance();
             // 注册监听蓝牙
             // Monitor communication signals

@@ -78,6 +78,18 @@
                 android:value=".SettingsActivity" />
         </activity>
 
+        <activity
+            android:name=".WITActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="WIT Motion Sensor"
+            android:screenOrientation="nosensor"
+            android:resizeableActivity="false"
+            android:theme="@style/MyTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WITActivity" />
+        </activity>
+
     </application>
 
 </manifest>
