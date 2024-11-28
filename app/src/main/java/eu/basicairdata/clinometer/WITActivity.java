@@ -18,6 +18,8 @@ import com.wit.witsdk.modular.sensor.modular.processor.constant.WitSensorKey;
 import com.wit.witsdk.modular.witsensorapi.modular.spp.Bwt901cl;
 import com.wit.witsdk.modular.witsensorapi.modular.spp.interfaces.IBwt901clRecordObserver;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -72,6 +74,12 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
     public static  WITActivity getInstance(){
         return singleton;
     }
+    public float accX;
+    public float accY;
+    public float accZ;
+    public float gyrX;
+    public float gyrY;
+    public float gyrZ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -304,8 +312,11 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
                 // 让所有设备进行加计校准
                 // Make all devices accelerometer calibrated
                 Bwt901cl bwt901cl = bwt901clList.get(i);
+
+
                 String deviceData = getDeviceData(bwt901cl);
                 text.append(deviceData);
+
             }
 
             TextView deviceDataTextView = findViewById(R.id.deviceDataTextView);
@@ -322,7 +333,8 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * @author huangyajun
      * @date 2022/6/29 11:37
      */
-    private String getDeviceData(Bwt901cl bwt901cl) {
+
+        private String getDeviceData(Bwt901cl bwt901cl) {
         StringBuilder builder = new StringBuilder();
         builder.append(bwt901cl.getDeviceName()).append("\n");
         builder.append(getString(com.wit.sdk.R.string.accX)).append(":").append(bwt901cl.getDeviceData(WitSensorKey.AccX)).append("g \t");
@@ -340,9 +352,31 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
         builder.append(getString(com.wit.sdk.R.string.t)).append(":").append(bwt901cl.getDeviceData(WitSensorKey.T)).append("\n");
         builder.append(getString(R.string.electricQuantityPercentage)).append(":").append(bwt901cl.getDeviceData(WitSensorKey.ElectricQuantityPercentage)).append("\n");
         builder.append(getString(com.wit.sdk.R.string.versionNumber)).append(":").append(bwt901cl.getDeviceData(WitSensorKey.VersionNumber)).append("\n");
-        return builder.toString();
-    }
 
+        accX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccX)));
+        accY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccY)));
+        accZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccZ)));
+        gyrX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleX)));
+        gyrY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleY)));
+        gyrZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleZ)));
+        return builder.toString();
+}
+
+    private float getFloat(String string){
+        float f;
+        try {
+            // Convert the string to a float using Float.valueOf() method
+
+            f = Float.parseFloat(string.replaceAll(",",".").trim());
+            return f;
+
+        } catch (Exception e) {
+            // Handle the case where the input string is not a valid float
+            //System.err.println("Invalid float format: " + floatString);
+            //e.printStackTrace();
+            return 0;
+        }
+    }
     /**
      * 让所有设备加计校准
      * Make all devices accelerometer calibrated

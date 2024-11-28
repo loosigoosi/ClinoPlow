@@ -84,7 +84,7 @@ import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_KEEP_SCR
 import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_UNIT_OF_MEASUREMENT;
 
 
-public class ClinometerActivity extends AppCompatActivity implements SensorEventListener {
+public class ClinometerActivity extends AppCompatActivity implements SensorDataListener {
 
     private static WITActivity witMotionSensor;
 
@@ -168,7 +168,9 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
     private FrameLayout mFrameLayoutPreview;
     private BackgroundView mBackgroundView;
 
-    private SensorManager mSensorManager;
+    private MockSensorProvider mSensorManager;
+    //private SensorManager mSensorManager;
+
     private Sensor mRotationSensor;
 
     private final float[] gravity              = {0, 0, 0};    // The (filtered) current accelerometers values
@@ -294,18 +296,20 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
+        //Attiva WITActivity
         Intent intent = new Intent(getBaseContext(), WITActivity.class);
-
         startActivity(intent);
 
-        witMotionSensor = WITActivity.getInstance();
+        //itMotionSensor = WITActivity.getInstance();
 
         singleton = this;
 
         clinometerApplication = ClinometerApplication.getInstance();
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mSensorManager = new MockSensorProvider(this, witMotionSensor);
+        //mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+
         setContentView(R.layout.activity_clinometer);
 
         mClinometerView = findViewById(R.id.id_clinometerview);
@@ -345,10 +349,10 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
 
         // ---------- Check sensors
 
-        Log.d("Clinometer", "- ROTATION_VECTOR Sensors = " + mSensorManager.getSensorList(Sensor.TYPE_ROTATION_VECTOR).size());
-        Log.d("Clinometer", "- ACCELEROMETER Sensors = " + mSensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size());
+        //Log.d("Clinometer", "- ROTATION_VECTOR Sensors = " + mSensorManager.getSensorList(Sensor.TYPE_ROTATION_VECTOR).size());
+        //Log.d("Clinometer", "- ACCELEROMETER Sensors = " + mSensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).size());
 
-        mRotationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mRotationSensor = mSensorManager.manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (mRotationSensor == null) Log.d("Clinometer", "NO ACCELEROMETER FOUND!");
 
         // ---------- Button Listeners
@@ -483,7 +487,7 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
     @Override
     protected void onPause() {
         super.onPause();
-        mSensorManager.unregisterListener(this);
+        mSensorManager.register(this, Sensor.TYPE_ACCELEROMETER,ACCELEROMETER_UPDATE_INTERVAL_MICROS);
         if (isInCameraMode) releaseCamera(true);
         stopCamera();
     }
@@ -520,8 +524,8 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
         isSettingsClicked = false;
         isLockRequested = false;
         updateLockIcon();
-
-        mSensorManager.registerListener(this, mRotationSensor, ACCELEROMETER_UPDATE_INTERVAL_MICROS);
+        mSensorManager.register( this, mRotationSensor.getType(), ACCELEROMETER_UPDATE_INTERVAL_MICROS);
+        //mSensorManager.registerListener(this, mRotationSensor, ACCELEROMETER_UPDATE_INTERVAL_MICROS);
 
         if (isInCameraMode && !isLocked){
             cameraPreviewBitmap = null;
@@ -557,9 +561,9 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
     }
 
 
-    public void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(SensorData event) {
 
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+        if (event.sensorType == Sensor.TYPE_ACCELEROMETER) {
 
             // LOCKING
 
@@ -624,20 +628,20 @@ public class ClinometerActivity extends AppCompatActivity implements SensorEvent
             // SIGNAL PROCESSING
 
             if (!isLocked) {
-                alpha0 = ALPHA * (float)(1 + Math.abs(mvGravity0.getMeanValue() - event.values[0])*0.1);
-                alpha1 = ALPHA * (float)(1 + Math.abs(mvGravity1.getMeanValue() - event.values[1])*0.1);
-                alpha2 = ALPHA * (float)(1 + Math.abs(mvGravity2.getMeanValue() - event.values[2])*0.1);
+                alpha0 = ALPHA * (float)(1 + Math.abs(mvGravity0.getMeanValue() - event.x)*0.1);
+                alpha1 = ALPHA * (float)(1 + Math.abs(mvGravity1.getMeanValue() - event.y)*0.1);
+                alpha2 = ALPHA * (float)(1 + Math.abs(mvGravity2.getMeanValue() - event.z)*0.1);
 
                 // Weighted gravity reads
 
                 if ((gravity[0] == 0) && (gravity[1] == 0) && (gravity[2] == 0)) {
-                    gravity[0] = (event.values[0] - gravity_offset[0]) / gravity_gain[0];   // X
-                    gravity[1] = (event.values[1] - gravity_offset[1]) / gravity_gain[1];   // Y
-                    gravity[2] = (event.values[2] - gravity_offset[2]) / gravity_gain[2];   // Z
+                    gravity[0] = (event.x - gravity_offset[0]) / gravity_gain[0];   // X
+                    gravity[1] = (event.y - gravity_offset[1]) / gravity_gain[1];   // Y
+                    gravity[2] = (event.z - gravity_offset[2]) / gravity_gain[2];   // Z
                 } else {
-                    gravity[0] = (1 - alpha0) * gravity[0] + (alpha0) * (event.values[0] - gravity_offset[0]) / gravity_gain[0];
-                    gravity[1] = (1 - alpha1) * gravity[1] + (alpha1) * (event.values[1] - gravity_offset[1]) / gravity_gain[1];
-                    gravity[2] = (1 - alpha2) * gravity[2] + (alpha2) * (event.values[2] - gravity_offset[2]) / gravity_gain[2];
+                    gravity[0] = (1 - alpha0) * gravity[0] + (alpha0) * (event.x - gravity_offset[0]) / gravity_gain[0];
+                    gravity[1] = (1 - alpha1) * gravity[1] + (alpha1) * (event.y - gravity_offset[1]) / gravity_gain[1];
+                    gravity[2] = (1 - alpha2) * gravity[2] + (alpha2) * (event.z - gravity_offset[2]) / gravity_gain[2];
                 }
 
                 // Apply Calibration values
