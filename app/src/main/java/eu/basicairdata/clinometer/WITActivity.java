@@ -80,7 +80,9 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
     public float gyrX;
     public float gyrY;
     public float gyrZ;
-
+    public float angX;
+    public float angY;
+    public float angZ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -356,10 +358,14 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
         accX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccX)));
         accY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccY)));
         accZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AccZ)));
-        gyrX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleX)));
-        gyrY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleY)));
-        gyrZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleZ)));
-        return builder.toString();
+        angX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleX)));
+        angY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleY)));
+        angZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AngleZ)));
+        gyrX = getFloat(bwt901cl.getDeviceData((WitSensorKey.AsX)));
+        gyrY = getFloat(bwt901cl.getDeviceData((WitSensorKey.AsY)));
+        gyrZ = getFloat(bwt901cl.getDeviceData((WitSensorKey.AsZ)));
+
+            return builder.toString();
 }
 
     private float getFloat(String string){

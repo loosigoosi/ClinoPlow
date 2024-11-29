@@ -10,7 +10,7 @@ import java.lang.Math;
 public class MockSensorProvider extends SensorProvider {
 
     private WITActivity mWITSensor = new WITActivity();
-
+private static boolean ALLOW_UPSIDE_DOWN = false;
     public MockSensorProvider(Context context, WITActivity witActivity) {
         super(context);
     }
@@ -22,7 +22,8 @@ public class MockSensorProvider extends SensorProvider {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        mWITSensor = WITActivity.getInstance();
+
+        mWITSensor= WITActivity.getInstance();
 
         final SensorDataListener listener = this.listener;
         if (listener == null) return;
@@ -36,10 +37,9 @@ public class MockSensorProvider extends SensorProvider {
         final float accZ = (float)(Math.signum(values[2]) * Math.sqrt(Math.abs(values[2])));  */
         SensorData gyrData;
         if (mWITSensor != null) {
-            final float accX = mWITSensor.accX;
-            final float accY = mWITSensor.accY;
-            final float accZ = mWITSensor.accZ;
-
+            float accX = mWITSensor.accX;
+            float accY = mWITSensor.accY;
+            float accZ = mWITSensor.accZ;
 
             accData = new SensorData(event.timestamp, Sensor.TYPE_ACCELEROMETER, accX, accY, accZ);
             listener.onSensorChanged(accData);
@@ -51,6 +51,7 @@ public class MockSensorProvider extends SensorProvider {
             final float gyrX = mWITSensor.gyrX;
             final float gyrY = mWITSensor.gyrY;
             final float gyrZ = mWITSensor.gyrZ;
+
 
             gyrData = new SensorData(
                     event.timestamp + 10,
