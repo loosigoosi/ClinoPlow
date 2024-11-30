@@ -86,17 +86,17 @@
 
     <path
         android:pathData="M54,0 L54,108"
-        android:strokeWidth="0.5"
+        android:strokeWidth="1"
         android:strokeColor="#888888" />
     <path
         android:pathData="M0,54 L108,54"
-        android:strokeWidth="0.5"
+        android:strokeWidth="1"
         android:strokeColor="#888888" />
 
     <!-- Circles -->
     <path
-        android:strokeWidth="0.2"
-        android:strokeColor="#888888"
+        android:strokeWidth="1"
+        android:strokeColor="#ff382d"
         android:pathData="M54,54m-16,0a10,10 0,1 1,32 0a10,10 0,1 1,-32 0" />
     <path
         android:strokeWidth="0.2"

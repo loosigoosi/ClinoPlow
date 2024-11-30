@@ -54,7 +54,7 @@
         android:fillType="nonZero"
         android:pathData="M33,45
         A8,8 0 2,2 49,45
-        A8,8 0 2,2 33,45 Z" />
+        A8,8 0 2,2 33,45 Z"
         android:strokeWidth="3"
         android:strokeColor="#22000000" />
 

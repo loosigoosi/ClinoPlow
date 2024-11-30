@@ -56,12 +56,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:alpha="0.33"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            app:srcCompat="@drawable/vallinalogo2020" />
 
-    <eu.basicairdata.clinometer.ClinometerView
-        android:id="@+id/id_clinometerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <eu.basicairdata.clinometer.ClinometerView
+            android:id="@+id/id_clinometerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/id_framelayout_overlay"

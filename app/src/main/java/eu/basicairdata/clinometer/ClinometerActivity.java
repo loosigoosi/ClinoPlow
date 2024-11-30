@@ -86,8 +86,8 @@ import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_UNIT_OF_
 
 public class ClinometerActivity extends AppCompatActivity implements SensorDataListener {
 
+    public static final boolean ALLOW_UPSIDE_DOWN = false;
     private static WITActivity witMotionSensor;
-    private static boolean ALLOW_UPSIDE_DOWN = false;
 
     // Singleton instance
     private static ClinometerActivity singleton;
@@ -703,11 +703,17 @@ public class ClinometerActivity extends AppCompatActivity implements SensorDataL
                     }
                     if ((angleXY > 180 - 45 + ROTATION_THRESHOLD) && (angleXY < 180 + 45 - ROTATION_THRESHOLD) && (displayRotation != 270)) {
                         displayRotation = 270;
+
+                        if (!ALLOW_UPSIDE_DOWN){displayRotation =0;}
+
                         Log.w("SpiritLevel", " ROTATION = " + displayRotation);
                         rotateOverlays(displayRotation, this.getWindowManager().getDefaultDisplay().getWidth(), this.getWindowManager().getDefaultDisplay().getHeight());
                     }
                     if (((angleXY > 270 + 45 + ROTATION_THRESHOLD) || (angleXY < 45 - ROTATION_THRESHOLD)) && (displayRotation != 90)) {
                         displayRotation = 90;
+
+                        if (!ALLOW_UPSIDE_DOWN){displayRotation =0;}
+
                         Log.w("SpiritLevel", " ROTATION = " + displayRotation);
                         rotateOverlays(displayRotation, this.getWindowManager().getDefaultDisplay().getWidth(), this.getWindowManager().getDefaultDisplay().getHeight());
                     }

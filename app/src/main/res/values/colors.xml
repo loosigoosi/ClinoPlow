@@ -22,6 +22,7 @@
 -->
 
 <resources>
+    <color name="line_red">#FF382D</color>
     <color name="colorPrimary">#3a3a3a</color>
     <color name="colorPrimaryDark">#00000000</color>
     <color name="colorAccent">#FFDD11</color>

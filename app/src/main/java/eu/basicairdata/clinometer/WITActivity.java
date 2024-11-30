@@ -54,7 +54,7 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * 设备列表
      * Device List
      */
-    private List<Bwt901cl> bwt901clList = new ArrayList<>();
+    private final List<Bwt901cl> bwt901clList = new ArrayList<>();
 
     /**
      * 控制自动刷新线程是否工作
@@ -116,31 +116,31 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
 
         // 加计校准按钮
         // Acceleration calibration button
-        Button appliedCalibrationButton = findViewById(R.id.appliedCalibrationButton);
-        appliedCalibrationButton.setOnClickListener((v) -> {
-            handleAppliedCalibration();
-        });
+        //Button appliedCalibrationButton = findViewById(R.id.appliedCalibrationButton);
+        //appliedCalibrationButton.setOnClickListener((v) -> {
+        //    handleAppliedCalibration();
+        //});
 
         // 开始磁场校准按钮
         // Start Magnetic Field Calibration button
-        Button startFieldCalibrationButton = findViewById(R.id.startFieldCalibrationButton);
-        startFieldCalibrationButton.setOnClickListener((v) -> {
-            handleStartFieldCalibration();
-        });
+        //Button startFieldCalibrationButton = findViewById(R.id.startFieldCalibrationButton);
+        //startFieldCalibrationButton.setOnClickListener((v) -> {
+        //    handleStartFieldCalibration();
+        //});
 
         // 结束磁场校准按钮
         // End Magnetic Field Calibration button
-        Button endFieldCalibrationButton = findViewById(R.id.endFieldCalibrationButton);
-        endFieldCalibrationButton.setOnClickListener((v) -> {
-            handleEndFieldCalibration();
-        });
+        //Button endFieldCalibrationButton = findViewById(R.id.endFieldCalibrationButton);
+        //endFieldCalibrationButton.setOnClickListener((v) -> {
+        //    handleEndFieldCalibration();
+        //});
 
         // 读取03寄存器按钮
         // Read 03 register button
-        Button readReg03Button = findViewById(R.id.readReg03Button);
-        readReg03Button.setOnClickListener((v) -> {
-            handleReadReg03();
-        });
+        //Button readReg03Button = findViewById(R.id.readReg03Button);
+        //readReg03Button.setOnClickListener((v) -> {
+        //    handleReadReg03();
+        //});
 
         // 自动刷新数据线程
         // Auto refresh data thread
@@ -256,6 +256,7 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
         Bwt901cl bwt901cl = new Bwt901cl(bluetoothSPP);
         // 避免重复连接
         // Avoid duplicate connections
+
         for(int i = 0; i < bwt901clList.size(); i++){
             if(Objects.equals(bwt901clList.get(i).getDeviceName(), bwt901cl.getDeviceName())){
                 return;
@@ -265,9 +266,18 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
         // add to device list
         bwt901clList.add(bwt901cl);
 
+
         // 注册数据记录
         // Registration data record
         bwt901cl.registerRecordObserver(this);
+
+
+
+        runOnUiThread(() -> {
+            String deviceName = bwt901cl.getDeviceName() + "g \n";
+            TextView controlDevicesTextView = findViewById(R.id.controlDevicesTextView);
+            controlDevicesTextView.setText(deviceName);
+            });
 
         // 打开设备
         // Turn on the device
@@ -367,7 +377,8 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
 
             return builder.toString();
 }
-
+///Aggiunto metodo per convertire una stringa in float, poiché i dati in arrivo dal sensore
+///  sono in formato testo locale con virgola decimale
     private float getFloat(String string){
         float f;
         try {
@@ -390,18 +401,18 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * @author huangyajun
      * @date 2022/6/29 10:25
      */
-    private void handleAppliedCalibration() {
-        for (int i = 0; i < bwt901clList.size(); i++) {
-            Bwt901cl bwt901cl = bwt901clList.get(i);
-            // 解锁寄存器
-            // unlock register
-            bwt901cl.unlockReg();
-            // 发送命令
-            // send command
-            bwt901cl.appliedCalibration();
-        }
-        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
-    }
+//    private void handleAppliedCalibration() {
+//        for (int i = 0; i < bwt901clList.size(); i++) {
+//            Bwt901cl bwt901cl = bwt901clList.get(i);
+//            // 解锁寄存器
+//            // unlock register
+//            bwt901cl.unlockReg();
+//            // 发送命令
+//            // send command
+//            bwt901cl.appliedCalibration();
+//        }
+//        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
+//    }
 
     /**
      * 让所有设备开始磁场校准
@@ -410,18 +421,18 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * @author huangyajun
      * @date 2022/6/29 10:25
      */
-    private void handleStartFieldCalibration() {
-        for (int i = 0; i < bwt901clList.size(); i++) {
-            Bwt901cl bwt901cl = bwt901clList.get(i);
-            // 解锁寄存器
-            // unlock register
-            bwt901cl.unlockReg();
-            // 发送命令
-            // send command
-            bwt901cl.startFieldCalibration();
-        }
-        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
-    }
+//    private void handleStartFieldCalibration() {
+//        for (int i = 0; i < bwt901clList.size(); i++) {
+//            Bwt901cl bwt901cl = bwt901clList.get(i);
+//            // 解锁寄存器
+//            // unlock register
+//            bwt901cl.unlockReg();
+//            // 发送命令
+//            // send command
+//            bwt901cl.startFieldCalibration();
+//        }
+//        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
+//    }
 
     /**
      * 让所有设备结束磁场校准
@@ -430,18 +441,18 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * @author huangyajun
      * @date 2022/6/29 10:25
      */
-    private void handleEndFieldCalibration() {
-        for (int i = 0; i < bwt901clList.size(); i++) {
-            Bwt901cl bwt901cl = bwt901clList.get(i);
-            // 解锁寄存器
-            // unlock register
-            bwt901cl.unlockReg();
-            // 发送命令
-            // send command
-            bwt901cl.endFieldCalibration();
-        }
-        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
-    }
+//    private void handleEndFieldCalibration() {
+//        for (int i = 0; i < bwt901clList.size(); i++) {
+//            Bwt901cl bwt901cl = bwt901clList.get(i);
+//            // 解锁寄存器
+//            // unlock register
+//            bwt901cl.unlockReg();
+//            // 发送命令
+//            // send command
+//            bwt901cl.endFieldCalibration();
+//        }
+//        Toast.makeText(this, "OK", Toast.LENGTH_LONG).show();
+//    }
 
 
 
@@ -452,21 +463,21 @@ public class WITActivity extends AppCompatActivity implements IBluetoothFoundObs
      * @author huangyajun
      * @date 2022/6/29 10:25
      */
-    private void handleReadReg03() {
-        for (int i = 0; i < bwt901clList.size(); i++) {
-            Bwt901cl bwt901cl = bwt901clList.get(i);
-            // 必须使用 sendProtocolData 方法，使用此方法设备才会将寄存器值读取上来
-            // Must be used sendProtocolData method, and the device will read the register value when you using this method
-            int waitTime = 200;
-            // 发送指令的命令,并且等待200ms
-            // The command to send the command, and wait 200ms
-            bwt901cl.sendProtocolData(new byte[]{(byte) 0xff, (byte) 0xAA, (byte) 0x27, (byte) 0x03, (byte) 0x00}, waitTime);
-            // 获得寄存器03的值
-            // get the value of register 03
-            String reg03Value = bwt901cl.getDeviceData("03");
-            // 如果读上来了 reg03Value 就是寄存器的值，如果没有读上来可以将 waitTime 放大,或者多读几次
-            // If it is read up, reg03Value is the value of the register. If it is not read up, you can enlarge waitTime, or read it several times.v
-            Toast.makeText(this, bwt901cl.getDeviceName() + " reg03Value: " + reg03Value, Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void handleReadReg03() {
+//        for (int i = 0; i < bwt901clList.size(); i++) {
+//            Bwt901cl bwt901cl = bwt901clList.get(i);
+//            // 必须使用 sendProtocolData 方法，使用此方法设备才会将寄存器值读取上来
+//            // Must be used sendProtocolData method, and the device will read the register value when you using this method
+//            int waitTime = 200;
+//            // 发送指令的命令,并且等待200ms
+//            // The command to send the command, and wait 200ms
+//            bwt901cl.sendProtocolData(new byte[]{(byte) 0xff, (byte) 0xAA, (byte) 0x27, (byte) 0x03, (byte) 0x00}, waitTime);
+//            // 获得寄存器03的值
+//            // get the value of register 03
+//            String reg03Value = bwt901cl.getDeviceData("03");
+//            // 如果读上来了 reg03Value 就是寄存器的值，如果没有读上来可以将 waitTime 放大,或者多读几次
+//            // If it is read up, reg03Value is the value of the register. If it is not read up, you can enlarge waitTime, or read it several times.v
+//            Toast.makeText(this, bwt901cl.getDeviceName() + " reg03Value: " + reg03Value, Toast.LENGTH_LONG).show();
+//        }
+//    }
 }
