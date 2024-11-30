@@ -19,7 +19,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.basicairdata.clinometer;
+package eu.basicairdata.clinoplow;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
@@ -37,9 +37,6 @@ import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,22 +63,22 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static eu.basicairdata.clinometer.ClinometerApplication.CAMERA_REQUEST_CODE;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_AUTOLOCK;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_AUTOLOCK_HORIZON_CHECK;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_AUTOLOCK_PRECISION;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_0;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_1;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_2;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_0;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_1;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_2;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_0;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_1;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_2;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_CAMERA_EXPOSURE_COMPENSATION;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_KEEP_SCREEN_ON;
-import static eu.basicairdata.clinometer.ClinometerApplication.KEY_PREF_UNIT_OF_MEASUREMENT;
+import static eu.basicairdata.clinoplow.ClinometerApplication.CAMERA_REQUEST_CODE;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_AUTOLOCK;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_AUTOLOCK_HORIZON_CHECK;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_AUTOLOCK_PRECISION;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_0;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_1;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_ANGLE_2;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_0;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_1;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_GAIN_2;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_0;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_1;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CALIBRATION_OFFSET_2;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_CAMERA_EXPOSURE_COMPENSATION;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_KEEP_SCREEN_ON;
+import static eu.basicairdata.clinoplow.ClinometerApplication.KEY_PREF_UNIT_OF_MEASUREMENT;
 
 
 public class ClinometerActivity extends AppCompatActivity implements SensorDataListener {

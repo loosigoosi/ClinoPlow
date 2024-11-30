@@ -4,7 +4,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "eu.basicairdata.clinometer"
+        applicationId "eu.basicairdata.clinoplow"
         minSdkVersion 21
         targetSdkVersion 33
 
@@ -39,7 +39,7 @@ android {
     lint {
         abortOnError false
     }
-    namespace 'eu.basicairdata.clinometer'
+    namespace 'eu.basicairdata.clinoplow'
     buildFeatures {
         buildConfig true
     }

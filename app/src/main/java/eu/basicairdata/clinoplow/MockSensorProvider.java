@@ -1,10 +1,8 @@
-package eu.basicairdata.clinometer;
+package eu.basicairdata.clinoplow;
 
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import java.lang.Math;
-
 
 
 public class MockSensorProvider extends SensorProvider {

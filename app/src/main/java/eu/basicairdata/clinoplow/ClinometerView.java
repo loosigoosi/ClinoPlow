@@ -19,9 +19,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.basicairdata.clinometer;
+package eu.basicairdata.clinoplow;
 
-import static eu.basicairdata.clinometer.ClinometerActivity.ALLOW_UPSIDE_DOWN;
+import static eu.basicairdata.clinoplow.ClinometerActivity.ALLOW_UPSIDE_DOWN;
 
 import android.content.Context;
 import android.graphics.Canvas;

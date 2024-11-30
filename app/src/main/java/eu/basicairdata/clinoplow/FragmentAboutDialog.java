@@ -19,7 +19,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.basicairdata.clinometer;
+package eu.basicairdata.clinoplow;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

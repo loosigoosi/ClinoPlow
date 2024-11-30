@@ -1,4 +1,4 @@
-package eu.basicairdata.clinometer;
+package eu.basicairdata.clinoplow;
 
 import android.content.Context;
 import android.hardware.Sensor;
