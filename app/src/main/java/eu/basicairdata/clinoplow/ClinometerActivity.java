@@ -158,6 +158,8 @@ public class ClinometerActivity extends AppCompatActivity implements SensorDataL
     private LinearLayout mLinearLayoutAnglesAndDelta;
     private LinearLayout mLinearLayoutToolbar;
     private ImageView mImageViewLock;
+    private ImageView mImageViewRPlow;
+    private ImageView mImageViewLPlow;
     private ImageView mImageViewDeltaAngles;
     private ImageView mImageViewSettings;
     private ImageView mImageViewCamera;
@@ -310,6 +312,10 @@ public class ClinometerActivity extends AppCompatActivity implements SensorDataL
         setContentView(R.layout.activity_clinometer);
 
         mClinometerView = findViewById(R.id.id_clinometerview);
+
+        mImageViewRPlow = findViewById(R.id.img_R_plow);
+        mImageViewLPlow = findViewById(R.id.img_L_plow);
+
         mTextViewAngles = findViewById(R.id.id_textview_angles);
         mTextViewToast = findViewById(R.id.id_textview_toast);
         mTextViewKeepScreenVertical = findViewById(R.id.id_textview_keep_screen_vertical);
@@ -756,6 +762,35 @@ public class ClinometerActivity extends AppCompatActivity implements SensorDataL
                 formattedAngle2 = dataFormatter.format(angle[2]);
                 mTextViewAngles.setText(formattedAngle0 + "  " + formattedAngle1 + "  " + formattedAngle2);
 //                mTextViewAngles.setText(String.format("%1.1f°  %1.1f°  %1.1f°", angle[0], angle[1], angle[2]));
+
+
+                if (angle[2] > 0) {
+                    float imgvWidth = mImageViewRPlow.getWidth();
+                    float imgvHeight = mImageViewRPlow.getHeight();
+
+                    mImageViewRPlow.setPivotX(imgvWidth/5);
+                    mImageViewRPlow.setPivotY(imgvHeight/2);
+
+                    mImageViewRPlow.setRotation(-angle[1]*3.5f);
+                    mImageViewRPlow.setVisibility(View.VISIBLE);
+
+                    mImageViewLPlow.setRotation(0);
+                    mImageViewLPlow.setVisibility(View.INVISIBLE);
+                } else {
+                    float imgvWidth = mImageViewLPlow.getWidth();
+                    float imgvHeight = mImageViewLPlow.getHeight();
+
+                    mImageViewLPlow.setPivotX((imgvWidth/5)*2);
+                    mImageViewLPlow.setPivotY(imgvHeight/2);
+
+                    mImageViewRPlow.setRotation(0);
+                    mImageViewRPlow.setVisibility(View.INVISIBLE);
+
+                    mImageViewLPlow.setRotation(angle[1]*3.5f);
+                    mImageViewLPlow.setVisibility(View.VISIBLE);
+
+                }
+
             }
 
             if (Math.abs(pid.getValue() - old_PIDValue) > 0.001) {
