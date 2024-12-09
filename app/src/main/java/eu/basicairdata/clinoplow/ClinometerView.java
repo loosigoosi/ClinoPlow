@@ -385,8 +385,9 @@ public class ClinometerView extends View {
         canvas.save();
         canvas.rotate(angleXY + 90, xc, yc);
         //canvas.translate(0, (int) ((90 - Math.toDegrees(angleXYZ)) * r1 / r1_value));
-        canvas.drawRect((int) (xc - diag2c), yc + (int) ((90 - angleXYZ) * r1 / r1_value),
-                (int)(xc + diag2c), (int)(yc + diag2c), paint_bg_horizon);
+
+        //canvas.drawRect((int) (xc - diag2c), yc + (int) ((90 - angleXYZ) * r1 / r1_value),
+        //        (int)(xc + diag2c), (int)(yc + diag2c), paint_bg_horizon);
         canvas.restore();
 
         // --------[ BACKGROUND LINES ]-------------------------------------------------------------

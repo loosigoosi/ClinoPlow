@@ -61,15 +61,15 @@
       android:fillColor="#ffa600"/>
   <path
       android:pathData="M111.19,122.37l11.09,0l0,21.95l-11.09,0z"
-      android:strokeWidth="0.23"
-      android:fillColor="#1a1a1a"
-      android:strokeColor="#2c1c00"
+      android:strokeWidth="1.23"
+      android:fillColor="#2a2a2a"
+      android:strokeColor="#6c6c60"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M111.19,168.04l11.09,0l0,21.95l-11.09,0z"
-      android:strokeWidth="0.23"
-      android:fillColor="#1a1a1a"
-      android:strokeColor="#2c1c00"
+      android:strokeWidth="1.23"
+      android:fillColor="#2a2a2a"
+      android:strokeColor="#6c6c60"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M107.21,128.24l2.56,0l0,55.88l-2.56,0z"

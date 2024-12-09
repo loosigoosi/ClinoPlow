@@ -763,30 +763,26 @@ public class ClinometerActivity extends AppCompatActivity implements SensorDataL
                 mTextViewAngles.setText(formattedAngle0 + "  " + formattedAngle1 + "  " + formattedAngle2);
 //                mTextViewAngles.setText(String.format("%1.1f°  %1.1f°  %1.1f°", angle[0], angle[1], angle[2]));
 
-
+final float imgvWidth = mImageViewRPlow.getWidth();
+final float imgvHeight = mImageViewRPlow.getHeight();
+final float fakeAngle = Math.min(Math.abs(angle[1]* 3.5f/*multiplier*/),45f) * Math.signum(angle[1]);
                 if (angle[2] > 0) {
-                    float imgvWidth = mImageViewRPlow.getWidth();
-                    float imgvHeight = mImageViewRPlow.getHeight();
-
                     mImageViewRPlow.setPivotX(imgvWidth/5);
                     mImageViewRPlow.setPivotY(imgvHeight/2);
 
-                    mImageViewRPlow.setRotation(-angle[1]*3.5f);
+                    mImageViewRPlow.setRotation(-fakeAngle); //inverted sign for correct visual rotation
                     mImageViewRPlow.setVisibility(View.VISIBLE);
 
                     mImageViewLPlow.setRotation(0);
                     mImageViewLPlow.setVisibility(View.INVISIBLE);
                 } else {
-                    float imgvWidth = mImageViewLPlow.getWidth();
-                    float imgvHeight = mImageViewLPlow.getHeight();
-
                     mImageViewLPlow.setPivotX((imgvWidth/5)*2);
                     mImageViewLPlow.setPivotY(imgvHeight/2);
 
                     mImageViewRPlow.setRotation(0);
                     mImageViewRPlow.setVisibility(View.INVISIBLE);
 
-                    mImageViewLPlow.setRotation(angle[1]*3.5f);
+                    mImageViewLPlow.setRotation(fakeAngle);
                     mImageViewLPlow.setVisibility(View.VISIBLE);
 
                 }
