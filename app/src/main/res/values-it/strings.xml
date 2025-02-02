@@ -60,8 +60,7 @@
     <string name="um_percent">%</string>
     <!-- About Dialog -->
     <string name="about_version">ver.</string>
-    <string name="about_description">Copyright (C) 2020 BasicAirData\nhttps://www.basicairdata.eu\n\nBasicAirData Clinometer misura gli angoli di inclinazione del dispositivo rispetto alla direzione della gravità utilizzando gli accelerometri di bordo.\n\nQuesto programma è software libero, rilasciato secondo i termini della GNU General Public License.\nPer maggiori dettagli consultare https://www.gnu.org/licenses/gpl.txt</string>
-    <string name="about_description_googleplaystore">Se ti piace utilizzare questa applicazione, prenditi un momento per valutare Clinometer nel Google Play Store.</string>
+    <string name="about_description">Basato sul codice dell\'app Clinometer sviluppata da BasicAirData https://www.basicairdata.eu (licenza GNU)\n\nQuesto programma è software libero, rilasciato secondo i termini della GNU General Public License. Per maggiori dettagli consultare https://www.gnu.org/licenses/gpl.txt</string>
     <string name="about_rate_this_app">Valuta questa app</string>
     <string name="about_unable_to_rate">Impossibile accedere allo Store</string>
     <!-- Calibration Activity -->
