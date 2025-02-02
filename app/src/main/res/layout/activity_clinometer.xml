@@ -51,12 +51,12 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <eu.basicairdata.clinoplow.BackgroundView
+        <aag.vallina.clinoplow.BackgroundView
             android:id="@+id/id_backgroundview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <eu.basicairdata.clinoplow.ClinometerView
+        <aag.vallina.clinoplow.ClinometerView
             android:id="@+id/id_clinometerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

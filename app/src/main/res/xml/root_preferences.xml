@@ -48,8 +48,8 @@
         app:defaultValue="false">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="eu.basicairdata.clinoplow"
-            android:targetClass="eu.basicairdata.clinoplow.CalibrationActivity" />
+            android:targetPackage="aag.vallina.clinoplow"
+            android:targetClass="aag.vallina.clinoplow.CalibrationActivity" />
     </Preference>
 
     <Preference

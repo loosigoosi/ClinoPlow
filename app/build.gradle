@@ -1,22 +1,31 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\spiff\\StudioProjects\\ClinoPlow\\Keystore\\keystore.jks')
+            storePassword '_K741953k'
+            keyPassword '_K741953k'
+            keyAlias 'ClinoPlow_key'
+        }
+    }
     compileSdk 33
 
     defaultConfig {
-        applicationId "eu.basicairdata.clinoplow"
+        applicationId "aag.vallina.clinoplow"
         minSdkVersion 21
         targetSdkVersion 33
 
         // -----------------------------------------------------------------------------------------
         // We use the Semantic Versioning (https://semver.org/):
-        versionName '1.2.4'
-        versionCode 10
+        versionName '0.1'
+        versionCode 1
         // -----------------------------------------------------------------------------------------
 
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionNameSuffix 'beta'
     }
 
     buildTypes {
@@ -34,12 +43,14 @@ android {
             crunchPngs false
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            versionNameSuffix '0.1'
+            signingConfig signingConfigs.release
         }
     }
     lint {
         abortOnError false
     }
-    namespace 'eu.basicairdata.clinoplow'
+    namespace 'aag.vallina.clinoplow'
     buildFeatures {
         buildConfig true
     }

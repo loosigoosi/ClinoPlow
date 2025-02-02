@@ -15,13 +15,13 @@
 
 
 currentpath=$(pwd)
-if [[ ${currentpath} != *"Clinometer"* ]];then
+if [[ ${currentpath} != *"ClinoPlow"* ]];then
 	# currentpath does not contain "Clinometer"
 	echo Clinometer Project Folder not found, exiting...
 	exit 1
 fi
 
-clinometerpath="${currentpath%Clinometer*}Clinometer/"
+clinometerpath="${currentpath%Clinometer*}ClinoPlow/"
 echo "Project Folder: ${clinometerpath}"
 cd ${clinometerpath}
 
